@@ -25,12 +25,47 @@
 	while(sudokuBuffer.length) {
 		sudokuArray.push(sudokuBuffer.splice(0,3))
 	}
-	console.log(sudokuData)
+	console.log(sudokuArray)
 </script>
 
-<div >
+<div class='sudoku-grid'>
+{#each sudokuArray as row}
+	{#each row as cell}
+		<div class="cell">
+		{#if cell != '.'}
+			{cell}
+		{/if}
+		</div>
+	{/each}
+{/each}
 </div>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
+.sudoku-grid {
+	margin: 140px auto auto auto;
+	width: fit-content;
+	aspect-ratio: 1;
+	display: grid;
+	grid-template-rows: repeat(9, 7.5vmin);
+	grid-template-columns: repeat(9, 7.5vmin);
+	gap: 0.1rem;
+
+	background-color: #1f1f1f;
+}
+
+.cell {
+	user-select: none;
+	box-sizing: border-box;
+	background-color: var(--color-bg-2);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Share Tech Mono', monospace;
+	font-weight: 600;
+}
+
+.cell:not(.forever)
 </style>
