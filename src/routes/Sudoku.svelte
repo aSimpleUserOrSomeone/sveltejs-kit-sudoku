@@ -24,7 +24,7 @@
 	const sudokuBuffer = [...sudoku.puzzle]
 	const sudokuArray = []
 	while(sudokuBuffer.length) {
-		sudokuArray.push(sudokuBuffer.splice(0,3))
+		sudokuArray.push(sudokuBuffer.splice(0,9))
 	}
 	
 	let selectedNumber = null;
@@ -36,15 +36,28 @@
 		const i = myCell.getAttribute("data-i-index")
 		const j = myCell.getAttribute("data-j-index")
 
+		selectThisCell(myCell)
+
 		sudokuArray[i][j] = selectedNumber
 	}
 
+	let selectedCell = null;
+	function selectThisCell(cell) {
+		if(selectedCell != null) selectedCell.id = ''
+		selectedCell = cell
+		selectedCell.id = 'selected-cell'
+	}
+
 </script>
+<h2>{#if selectedCell != null}
+{selectedCell.id}
+{/if}
+</h2>
 
 <div class='sudoku-grid'>
 {#each sudokuArray as row, i}
 	{#each row as cell, j}
-		{#if cell != '.'}
+		{#if sudokuBuffer[0] != '.'}
 			<div class="cell forever" data-i-index={i} data-j-index={j}>
 				{cell}
 			</div>
@@ -132,8 +145,13 @@ input[type="radio"]:checked ~ span:first-of-type {
 	font-family: 'Share Tech Mono', monospace;
 	font-weight: 600;
 }
-
 .cell.forever {
 	color: #2f2f2f;
+}
+
+#selected-cell {
+	background-color: "#6699CC";
+	color: white;
+	font-size: 4rem;
 }
 </style>
