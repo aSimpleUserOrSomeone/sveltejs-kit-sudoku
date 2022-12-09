@@ -31,22 +31,74 @@
 <div class='sudoku-grid'>
 {#each sudokuArray as row}
 	{#each row as cell}
-		<div class="cell">
 		{#if cell != '.'}
-			{cell}
+			<div class="cell forever">
+				{cell}
+			</div>
+		{:else}
+			<div class="cell"/>
 		{/if}
-		</div>
 	{/each}
+{/each}
+</div>
+<div class="numbers-keyboard">
+{#each [1,2,3,4,5,6,7,8,9] as number}
+	<label>
+		<input type="radio" name="number" id="{number}">
+		<span>{number}</span>
+	</label>
 {/each}
 </div>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
+.numbers-keyboard {
+	font-family: 'Share Tech Mono', monospace;
+	width: fit-content;
+	height: fit-content;
+	margin: 1rem auto 0 auto;
+
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.3rem;
+}
+label {
+	position: relative;
+	width: 2rem;
+	height: 2rem;
+}
+label > span {
+	position: absolute;
+	width: min-content;
+	height: min-content;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+input[type='radio'] {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0%;
+	left: 0%;
+	background-color: "black";
+	border: 2px solid black;
+	border-radius: 50%;
+
+}
+input[type="radio"]:checked {
+	background-color: 'black';
+}
+input[type="radio"]:checked ~ span:first-of-type {
+  color: red;
+}
+
 .sudoku-grid {
 	margin: 140px auto auto auto;
 	width: fit-content;
-	aspect-ratio: 1;
+	height: fit-content;
 	display: grid;
 	grid-template-rows: repeat(9, 7.5vmin);
 	grid-template-columns: repeat(9, 7.5vmin);
@@ -59,6 +111,7 @@
 	user-select: none;
 	box-sizing: border-box;
 	background-color: var(--color-bg-2);
+	color: red;
 
 	display: flex;
 	justify-content: center;
@@ -67,5 +120,7 @@
 	font-weight: 600;
 }
 
-.cell:not(.forever)
+.cell.forever {
+	color: #2f2f2f;
+}
 </style>
