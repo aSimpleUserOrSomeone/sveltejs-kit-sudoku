@@ -29,17 +29,27 @@
 	
 	let selectedNumber = null;
 
+	function cellClicked(event) {
+		if(selectedNumber == null) return
+		const myCell = event.target
+		myCell.textContent = selectedNumber
+		const i = myCell.getAttribute("data-i-index")
+		const j = myCell.getAttribute("data-j-index")
+
+		sudokuArray[i][j] = selectedNumber
+	}
+
 </script>
 
 <div class='sudoku-grid'>
-{#each sudokuArray as row}
-	{#each row as cell}
+{#each sudokuArray as row, i}
+	{#each row as cell, j}
 		{#if cell != '.'}
-			<div class="cell forever">
+			<div class="cell forever" data-i-index={i} data-j-index={j}>
 				{cell}
 			</div>
 		{:else}
-			<div class="cell"/>
+			<div class="cell" on:click={cellClicked} data-i-index={i} data-j-index={j}/>
 		{/if}
 	{/each}
 {/each}
@@ -114,7 +124,7 @@ input[type="radio"]:checked ~ span:first-of-type {
 	user-select: none;
 	box-sizing: border-box;
 	background-color: var(--color-bg-2);
-	color: red;
+	color: 'blue';
 
 	display: flex;
 	justify-content: center;
