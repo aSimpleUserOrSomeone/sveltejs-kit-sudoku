@@ -48,16 +48,45 @@
 		selectedCell.id = 'selected-cell'
 	}
 
+	let kC = 0
+	function onKeyboardAction(event) {
+		if (selectedCell == null) return
+		let dir = ''
+		let newCell = null
+		let i = Number(selectedCell.getAttribute("data-i-index"))
+		let j = Number(selectedCell.getAttribute("data-j-index"))
+
+		
+		switch(event.keyCode) {
+			case 37:
+				j--
+				break
+			case 38:
+				i--
+				break
+			case 39:
+				j++
+				break
+			case 40:
+				i++
+				break
+		}
+
+		var toBeSelected = (i * 9) + j + 1
+		kC = toBeSelected
+		if(toBeSelected > 81) {toBeSelected -=  81}
+		else if(toBeSelected < 1) {toBeSelected += 81}
+
+		newCell = document.querySelector(`.cell:nth-child(${toBeSelected})`)
+		selectThisCell(newCell)
+	}
+
 </script>
-<h2>{#if selectedCell != null}
-{selectedCell.id}
-{/if}
-</h2>
 
 <div class='sudoku-grid'>
 {#each sudokuArray as row, i}
 	{#each row as cell, j}
-		{#if sudokuBuffer[0] != '.'}
+		{#if sudoku.puzzle[i*9 + j] != '.'}
 			<div class="cell forever" data-i-index={i} data-j-index={j}>
 				{cell}
 			</div>
@@ -75,6 +104,7 @@
 	</label>
 {/each}
 </div>
+<svelte:window on:keydown|preventDefault={onKeyboardAction}/>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
@@ -137,7 +167,7 @@ input[type="radio"]:checked ~ span:first-of-type {
 	user-select: none;
 	box-sizing: border-box;
 	background-color: var(--color-bg-2);
-	color: 'blue';
+	color: #6f6f6f;
 
 	display: flex;
 	justify-content: center;
@@ -146,12 +176,16 @@ input[type="radio"]:checked ~ span:first-of-type {
 	font-weight: 600;
 }
 .cell.forever {
-	color: #2f2f2f;
+	color: #0f0f0f;
+}
+
+#selected-cell:not(.forever) {
+	background-color: #6699CC;
+	color: white;
 }
 
 #selected-cell {
-	background-color: "#6699CC";
-	color: white;
-	font-size: 4rem;
+	background-color: #e0e0e0;
+	color: grey;
 }
 </style>
