@@ -20,12 +20,15 @@
 		difficulty:"Easy",
 		puzzle:"...465......2..7..9....76..6....234..15...2.9.4...8........6..17.1...9.3..9...5.."
 	}
-	let sudokuBuffer = [...sudoku.puzzle]
+
+	const sudokuBuffer = [...sudoku.puzzle]
 	const sudokuArray = []
 	while(sudokuBuffer.length) {
 		sudokuArray.push(sudokuBuffer.splice(0,3))
 	}
-	console.log(sudokuArray)
+	
+	let selectedNumber = null;
+
 </script>
 
 <div class='sudoku-grid'>
@@ -44,7 +47,7 @@
 <div class="numbers-keyboard">
 {#each [1,2,3,4,5,6,7,8,9] as number}
 	<label>
-		<input type="radio" name="number" id="{number}">
+		<input bind:group={selectedNumber} type="radio" name="number" id="{number}" value={number}>
 		<span>{number}</span>
 	</label>
 {/each}
@@ -92,7 +95,7 @@ input[type="radio"]:checked {
 	background-color: 'black';
 }
 input[type="radio"]:checked ~ span:first-of-type {
-  color: red;
+  color: white;
 }
 
 .sudoku-grid {
