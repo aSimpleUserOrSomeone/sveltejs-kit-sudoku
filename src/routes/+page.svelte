@@ -10,7 +10,7 @@
 </svelte:head>
 
 <html lang="en">
-<h1>Play Sudoku!</h1>
+<h1>Play Sudoku!!!</h1>
 	<Sudoku/>
 </html>
 
