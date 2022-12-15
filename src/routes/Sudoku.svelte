@@ -1,8 +1,14 @@
 <script>
 	console.log('Page Load')
 
-	fetch("../../static/sudokuData.json")
-	.then(res => console.log(res))
+
+	async function fetchSudoku(url) {
+		const fetchPromise = await fetch(url)
+		return await fetchPromise.json()
+	}
+
+	fetchSudoku("../../sudokuData.json")
+	.then(data => console.log(data))
 
 	const sudoku = {
 		seed:1337,
