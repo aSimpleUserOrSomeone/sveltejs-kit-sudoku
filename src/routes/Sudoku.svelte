@@ -10,13 +10,9 @@
 	fetchSudoku("../../sudokuData.json")
 	.then(data => console.log(data))
 
-	const sudoku = {
-		seed:1337,
-		difficulty:"Easy",
-		puzzle:"...465......2..7..9....76..6....234..15...2.9.4...8........6..17.1...9.3..9...5.."
-	}
+	const sudokuPuzzle = "...465......2..7..9....76..6....234..15...2.9.4...8........6..17.1...9.3..9...5.."
 
-	const sudokuBuffer = [...sudoku.puzzle]
+	const sudokuBuffer = [...sudokuPuzzle]
 	const sudokuArray = []
 	while(sudokuBuffer.length) {
 		sudokuArray.push(sudokuBuffer.splice(0,9))
@@ -78,6 +74,7 @@
 
 </script>
 
+<h2>Selected number: {selectedNumber}</h2>
 <div class='sudoku-grid'>
 {#each sudokuArray as row, i}
 	{#each row as cell, j}
