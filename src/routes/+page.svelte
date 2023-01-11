@@ -11,6 +11,7 @@
 
 <html lang="en">
 <h1>Play Sudoku!!!</h1>
+	<img src="$lib/images/svelte-welcome.png" alt="static logo">
 	<Sudoku/>
 </html>
 

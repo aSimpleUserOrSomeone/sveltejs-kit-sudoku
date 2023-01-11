@@ -1,15 +1,14 @@
 <script>
 	console.log('Page Load')
 
-
-	async function fetchSudoku(url) {
+	async function fetchJSON(url) {
 		const fetchPromise = await fetch(url)
 		return await fetchPromise.json()
 	}
 
-	fetchSudoku("../../sudokuData.json")
+	fetchJSON("https://jsonplaceholder.typicode.com/todos/1")
 	.then(data => console.log(data))
-
+	
 	const sudokuPuzzle = "...465......2..7..9....76..6....234..15...2.9.4...8........6..17.1...9.3..9...5.."
 
 	const sudokuBuffer = [...sudokuPuzzle]
@@ -78,7 +77,7 @@
 <div class='sudoku-grid'>
 {#each sudokuArray as row, i}
 	{#each row as cell, j}
-		{#if sudoku.puzzle[i*9 + j] != '.'}
+		{#if sudokuPuzzle[i*9 + j] != '.'}
 			<div class="cell forever" data-i-index={i} data-j-index={j}>
 				{cell}
 			</div>
